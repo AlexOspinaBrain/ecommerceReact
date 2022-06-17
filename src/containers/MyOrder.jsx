@@ -1,10 +1,19 @@
-import React from 'react';
-import OrderItem from '@components/OrderItem';
-import '@styles/MyOrder.scss';
+import React, { useEffect, useContext } from 'react';
+import AppContext from '../context/AppContext';
 
+import OrderItem from '@components/OrderItem';
+
+
+import '@styles/MyOrder.scss';
 import logo from '@logos/logo_yard_sale.svg';
 
 const MyOrder = () => {
+	const { state } = useContext(AppContext);
+	useEffect(()=>{
+		console.log(state);
+	},[])
+		
+	
 	return (
 		<aside className="MyOrder">
 			<div className="title-container">
@@ -12,7 +21,10 @@ const MyOrder = () => {
 				<p className="title">My order</p>
 			</div>
 			<div className="my-order-content">
-				<OrderItem />
+				{state.cart.map(product=>(
+					<OrderItem product={product} key={`productItem-${product.id}`}/>
+				))}
+				
 				<div className="order">
 					<p>
 						<span>Total</span>
